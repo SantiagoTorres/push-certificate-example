@@ -24,10 +24,10 @@ DAEMON_PID=$!
 cd ..
 
 # client side
-echo "Ok, Done. You should not be able to clone+push on git://localhost/signed-repo.git"
+echo "Ok, Done. You should now be able to clone+push on git://localhost/signed-repo.git"
 if asksure "Do you want to automatically try this out? (y/N)"; then
     source ../autoclient.sh
-    tree server/signed-repo.git/objects
+    tree ../../signed-repo.git/objects
 else
     echo "ok, killing the server now..."
 fi
