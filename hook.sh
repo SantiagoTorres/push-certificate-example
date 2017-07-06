@@ -15,7 +15,7 @@ done
 if test -n "${GIT_PUSH_CERT-}" && test ${GIT_PUSH_CERT_STATUS} = G
 then
 	(
-		echo expected nonce is ${GIT_PUSH_NONCE}
+		echo expected nonce is ${GIT_PUSH_CERT_NONCE}
 		git cat-file blob ${GIT_PUSH_CERT}
 	)
 fi
