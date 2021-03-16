@@ -15,6 +15,10 @@ git config receive.certNonceSlop 1000  # necessary for signed push
 # set up our post-receive hook to handle the certificates.
 cp ../../hook.sh hooks/post-receive && chmod +x hooks/post-receive
 
+# copy cosign into the receive hook
+cp ../../cosign .
+cp ../../cosign.key .
+
 # actually listen. We will send the log to a logfile to avoid polluting our stdout 
 git daemon --verbose --reuseaddr --informative-errors --enable=receive-pack \
     --base-path=$PWD/.. > server.log 2>server.err &
@@ -25,11 +29,9 @@ cd ..
 
 # client side
 echo "Ok, Done. You should now be able to clone+push on git://localhost/signed-repo.git"
-if asksure "Do you want to automatically try this out? (y/N)"; then
+if asksure "Do you want to automatically try this out?"; then
     source ../autoclient.sh
     tree ../../signed-repo.git/objects
 else
     echo "ok, killing the server now..."
 fi
-
-kill -15 $DAEMON_PID
